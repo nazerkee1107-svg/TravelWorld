@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Travel World — Саяхат әлемі</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            color: #222;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================== */
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.96);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #1677ff;
+        }
+
+        .logo span {
+            color: #ff7a00;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #1677ff;
+        }
+
+        /* =========================
+           HERO
+        ========================== */
+
+        .hero {
+            min-height: 700px;
+            background:
+                linear-gradient(
+                    rgba(0, 40, 80, 0.55),
+                    rgba(0, 40, 80, 0.55)
+                ),
+                url("https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1600&q=80");
+
+            background-size: cover;
+            background-position: center;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+            color: white;
+            padding: 100px 20px 40px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 58px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 22px;
+            line-height: 1.6;
+            margin-bottom: 35px;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            padding: 16px 35px;
+            background: #ff7a00;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .hero-btn:hover {
+            background: #ff9200;
+            transform: translateY(-3px);
+        }
+
+        /* =========================
+           SEARCH
+        ========================== */
+
+        .search-box {
+            width: 90%;
+            max-width: 900px;
+            margin: -50px auto 60px;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+
+            display: flex;
+            gap: 15px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-box button {
+            padding: 15px 30px;
+            border: none;
+            background: #1677ff;
+            color: white;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .search-box button:hover {
+            background: #005edb;
+        }
+
+        /* =========================
+           GENERAL SECTION
+        ========================== */
+
+        section {
+            padding: 70px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title h2 {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #777;
+            font-size: 17px;
+        }
+
+        /* =========================
+           DESTINATIONS
+        ========================== */
+
+        .destinations {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(250px, 1fr));
+
+            gap: 25px;
+        }
+
+        .destination {
+            height: 330px;
+            border-radius: 18px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .destination img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .destination:hover img {
+            transform: scale(1.1);
+        }
+
+        .destination-info {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 25px;
+            color: white;
+
+            background:
+                linear-gradient(
+                    transparent,
+                    rgba(0,0,0,0.8)
+                );
+        }
+
+        .destination-info h3 {
+            font-size: 25px;
+            margin-bottom: 5px;
+        }
+
+        /* =========================
+           TOURS
+        ========================== */
+
+        #tours {
+            background: #eef4fa;
+        }
+
+        .tour-container {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(280px, 1fr));
+
+            gap: 30px;
+        }
+
+        .tour-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 7px 20px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+
+        .tour-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .tour-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .tour-content {
+            padding: 22px;
+        }
+
+        .tour-content h3 {
+            font-size: 23px;
+            margin-bottom: 10px;
+        }
+
+        .tour-content p {
+            color: #777;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .tour-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .price {
+            color: #1677ff;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .details-btn {
+            padding: 10px 18px;
+            border: none;
+            background: #1677ff;
+            color: white;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .details-btn:hover {
+            background: #005edb;
+        }
+
+        /* =========================
+           ABOUT
+        ========================== */
+
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about img {
+            width: 100%;
+            border-radius: 20px;
+        }
+
+        .about-text h2 {
+            font-size: 38px;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 17px;
+            margin-bottom: 20px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .feature {
+            padding: 18px;
+            background: #f0f5ff;
+            border-radius: 10px;
+        }
+
+        .feature strong {
+            color: #1677ff;
+        }
+
+        /* =========================
+           CONTACT
+        ========================== */
+
+        .contact {
+            background: #1677ff;
+            color: white;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .contact p {
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .contact-form textarea {
+            height: 130px;
+            resize: none;
+        }
+
+        .contact-form button {
+            padding: 15px;
+            border: none;
+            background: #ff7a00;
+            color: white;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .contact-form button:hover {
+            background: #ff9200;
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+            background: #111827;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        footer p {
+            color: #aaa;
+        }
+
+        /* =========================
+           MODAL
+        ========================== */
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 15px;
+            padding: 30px;
+            position: relative;
+            text-align: center;
+        }
+
+        .modal-content h2 {
+            margin-bottom: 15px;
+            color: #1677ff;
+        }
+
+        .modal-content p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
+        @media (max-width: 768px) {
+
+            nav {
+                padding: 0 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+            }
+
+            .about-text h2 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- =========================
+     NAVIGATION
+========================== -->
+
+<nav>
+
+    <div class="logo">
+        Travel<span>World</span>
+    </div>
+
+    <ul class="nav-links">
+        <li>
+            <a href="#home">Басты бет</a>
+        </li>
+
+        <li>
+            <a href="#destinations">Бағыттар</a>
+        </li>
+
+        <li>
+            <a href="#tours">Турлар</a>
+        </li>
+
+        <li>
+            <a href="#about">Біз туралы</a>
+        </li>
+
+        <li>
+            <a href="#contact">Байланыс</a>
+        </li>
+    </ul>
+
+</nav>
+
+
+<!-- =========================
+     HERO
+========================== -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <h1>Әлемді бірге аралайық 🌍</h1>
+
+        <p>
+            Армандаған саяхатыңды бүгіннен баста.
+            Әлемнің ең әдемі жерлеріне саяхат жасап,
+            ұмытылмас әсер ал.
+        </p>
+
+        <a href="#destinations" class="hero-btn">
+            Бағыттарды көру
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SEARCH
+========================== -->
+
+<div class="search-box">
+
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="Қаланы немесе елді іздеңіз..."
+    >
+
+    <button onclick="searchDestination()">
+        🔍 Іздеу
+    </button>
+
+</div>
+
+
+<!-- =========================
+     DESTINATIONS
+========================== -->
+
+<section id="destinations">
+
+    <div class="section-title">
+
+        <h2>🌎 Танымал бағыттар</h2>
+
+        <p>
+            Саяхатшылар ең көп таңдайтын жерлер
+        </p>
+
+    </div>
+
+
+    <div class="destinations">
+
+        <div class="destination">
+
+            <img
+                src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=800&q=80"
+                alt="London"
+            >
+
+            <div class="destination-info">
+                <h3>🇬🇧 Лондон</h3>
+                <p>Ұлыбритания</p>
+            </div>
+
+        </div>
+
+
+        <div class="destination">
+
+            <img
+                src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80"
+                alt="Paris"
+            >
+
+            <div class="destination-info">
+                <h3>🇫🇷 Париж</h3>
+                <p>Франция</p>
+            </div>
+
+        </div>
+
+
+        <div class="destination">
+
+            <img
+                src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80"
+                alt="Bali"
+            >
+
+            <div class="destination-info">
+                <h3>🇮🇩 Бали</h3>
+                <p>Индонезия</p>
+            </div>
+
+        </div>
+
+
+        <div class="destination">
+
+            <img
+                src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80"
+                alt="Tokyo"
+            >
+
+            <div class="destination-info">
+                <h3>🇯🇵 Токио</h3>
+                <p>Жапония</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     TOURS
+========================== -->
+
+<section id="tours">
+
+    <div class="section-title">
+
+        <h2>✈️ Танымал турлар</h2>
+
+        <p>
+            Өзіңе ұнайтын саяхатты таңда
+        </p>
+
+    </div>
+
+
+    <div class="tour-container">
+
+        <!-- TOUR 1 -->
+
+        <div class="tour-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80"
+                alt="Paris"
+            >
+
+            <div class="tour-content">
+
+                <h3>Парижге саяхат</h3>
+
+                <p>
+                    Эйфель мұнарасын көріп,
+                    Париждің әдемі көшелерімен
+                    серуендеңіз.
+                </p>
+
+                <div class="tour-bottom">
+
+                    <span class="price">
+                        250 000 ₸
+                    </span>
+
+                    <button
+                        class="details-btn"
+                        onclick="openModal(
+                            'Парижге саяхат',
+                            '5 күндік саяхат. Қонақүй, экскурсия және қала бойынша тур кіреді.'
+                        )"
+                    >
+                        Толығырақ
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TOUR 2 -->
+
+        <div class="tour-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80"
+                alt="Tokyo"
+            >
+
+            <div class="tour-content">
+
+                <h3>Токио туры</h3>
+
+                <p>
+                    Жапония мәдениетімен танысып,
+                    Токионың ерекше орындарын
+                    тамашалаңыз.
+                </p>
+
+                <div class="tour-bottom">
+
+                    <span class="price">
+                        420 000 ₸
+                    </span>
+
+                    <button
+                        class="details-btn"
+                        onclick="openModal(
+                            'Токио туры',
+                            '7 күндік саяхат. Қонақүй, трансфер және экскурсиялар кіреді.'
+                        )"
+                    >
+                        Толығырақ
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TOUR 3 -->
+
+        <div class="tour-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80"
+                alt="Bali"
+            >
+
+            <div class="tour-content">
+
+                <h3>Бали демалысы</h3>
+
+                <p>
+                    Теңіз жағасында демалып,
+                    тропикалық табиғатты
+                    тамашалаңыз.
+                </p>
+
+                <div class="tour-bottom">
+
+                    <span class="price">
+                        350 000 ₸
+                    </span>
+
+                    <button
+                        class="details-btn"
+                        onclick="openModal(
+                            'Бали демалысы',
+                            '6 күндік демалыс. Қонақүй, жағажай және бірнеше экскурсия кіреді.'
+                        )"
+                    >
+                        Толығырақ
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TOUR 4 -->
+
+        <div class="tour-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=800&q=80"
+                alt="London"
+            >
+
+            <div class="tour-content">
+
+                <h3>Лондон саяхаты</h3>
+
+                <p>
+                    Лондонның тарихи орындарын,
+                    мұражайларын және көрікті
+                    жерлерін аралаңыз.
+                </p>
+
+                <div class="tour-bottom">
+
+                    <span class="price">
+                        300 000 ₸
+                    </span>
+
+                    <button
+                        class="details-btn"
+                        onclick="openModal(
+                            'Лондон саяхаты',
+                            '5 күндік саяхат. Қонақүй және негізгі туристік орындарға экскурсия кіреді.'
+                        )"
+                    >
+                        Толығырақ
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ABOUT
+========================== -->
+
+<section id="about">
+
+    <div class="about">
+
+        <img
+            src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1000&q=80"
+            alt="Travel"
+        >
+
+
+        <div class="about-text">
+
+            <h2>✈️ Біз туралы</h2>
+
+            <p>
+                TravelWorld — адамдарға әлемнің
+                қызықты жерлерін табуға көмектесетін
+                заманауи туристік жоба.
+            </p>
+
+            <p>
+                Біз әртүрлі бағыттарды ұсынып,
+                саяхатшыларға ыңғайлы әрі қызықты
+                демалыс жоспарлауға көмектесеміз.
+            </p>
+
+
+            <div class="features">
+
+                <div class="feature">
+                    🌎
+                    <strong>100+ бағыт</strong>
+                </div>
+
+                <div class="feature">
+                    ✈️
+                    <strong>50+ тур</strong>
+                </div>
+
+                <div class="feature">
+                    ⭐
+                    <strong>Сапалы қызмет</strong>
+                </div>
+
+                <div class="feature">
+                    💬
+                    <strong>Қолдау қызметі</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CONTACT
+========================== -->
+
+<section class="contact" id="contact">
+
+    <h2>📩 Бізбен байланыс</h2>
+
+    <p>
+        Саяхат туралы сұрақтарыңыз болса,
+        бізге хабарласыңыз.
+    </p>
+
+
+    <form
+        class="contact-form"
+        onsubmit="sendMessage(event)"
+    >
+
+        <input
+            type="text"
+            id="name"
+            placeholder="Атыңыз"
+            required
+        >
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Email"
+            required
+        >
+
+        <textarea
+            id="message"
+            placeholder="Хабарламаңыз..."
+            required
+        ></textarea>
+
+        <button type="submit">
+            Хабарлама жіберу
+        </button>
+
+    </form>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================== -->
+
+<footer>
+
+    <h3>TravelWorld 🌍</h3>
+
+    <p>
+        © 2026 TravelWorld. Барлық құқықтар қорғалған.
+    </p>
+
+</footer>
+
+
+<!-- =========================
+     MODAL
+========================== -->
+
+<div class="modal" id="modal">
+
+    <div class="modal-content">
+
+        <span
+            class="close"
+            onclick="closeModal()"
+        >
+            &times;
+        </span>
+
+        <h2 id="modalTitle">
+            Тур
+        </h2>
+
+        <p id="modalText">
+            Ақпарат
+        </p>
+
+        <button
+            class="details-btn"
+            onclick="closeModal()"
+        >
+            Жабу
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    // =========================
+    // ІЗДЕУ ФУНКЦИЯСЫ
+    // =========================
+
+    function searchDestination() {
+
+        const input =
+            document.getElementById("searchInput");
+
+        const value =
+            input.value.trim().toLowerCase();
+
+
+        if (value === "") {
+
+            alert("Іздеу үшін қала немесе ел енгізіңіз!");
+
+            return;
+        }
+
+
+        const destinations = [
+            "париж",
+            "франция",
+            "лондон",
+            "англия",
+            "токио",
+            "жапония",
+            "бали",
+            "индонезия"
+        ];
+
+
+        if (destinations.includes(value)) {
+
+            alert(
+                "✅ " +
+                input.value +
+                " бағыты табылды!"
+            );
+
+            document
+                .getElementById("tours")
+                .scrollIntoView({
+                    behavior: "smooth"
+                });
+
+        } else {
+
+            alert(
+                "❌ Кешіріңіз, бұл бағыт әзірге жоқ."
+            );
+
+        }
+
+    }
+
+
+    // =========================
+    // MODAL АШУ
+    // =========================
+
+    function openModal(title, text) {
+
+        document.getElementById("modalTitle")
+            .textContent = title;
+
+        document.getElementById("modalText")
+            .textContent = text;
+
+        document.getElementById("modal")
+            .style.display = "flex";
+
+    }
+
+
+    // =========================
+    // MODAL ЖАБУ
+    // =========================
+
+    function closeModal() {
+
+        document.getElementById("modal")
+            .style.display = "none";
+
+    }
+
+
+    // =========================
+    // ТЕРЕЗЕДЕН ТЫС ЖЕРДІ БАСУ
+    // =========================
+
+    window.onclick = function(event) {
+
+        const modal =
+            document.getElementById("modal");
+
+        if (event.target === modal) {
+
+            closeModal();
+
+        }
+
+    };
+
+
+    // =========================
+    // ФОРМА
+    // =========================
+
+    function sendMessage(event) {
+
+        event.preventDefault();
+
+
+        const name =
+            document.getElementById("name").value;
+
+        alert(
+            "Рақмет, " +
+            name +
+            "! Хабарламаңыз қабылданды. 📩"
+        );
+
+
+        document.querySelector(".contact-form")
+            .reset();
+
+    }
+
+</script>
+
+</body>
+</html>
